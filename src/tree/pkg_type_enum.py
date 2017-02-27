@@ -1,4 +1,4 @@
 
 
-class pkg_type:
-    REQ, DEP = range(2)
+class PkgTypeEnum:
+    REQUIREMENT, DEPENDENCY = range(2)

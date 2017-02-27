@@ -7,11 +7,13 @@ format_full_version(info)
 get_compiled_list_using_grammar(package_list)
 """
 import os
-import sys
-import re
 import platform
+import re
+import sys
+
 from parsley import makeGrammar
-from grammar import grammar
+
+from src.compile.grammar import grammar
 
 
 def get_package_list_from_requirement_file(req_file_path):
