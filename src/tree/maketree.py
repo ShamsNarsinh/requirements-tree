@@ -11,7 +11,7 @@ class MakeTree:
 
     def process_requirements_list(self, version_flag=False):
         for req in self.req_list:
-            pkg_node = self.create_tree_node_for_package(req[0])
+            pkg_node = self.create_tree_node_for_package(req[0], PkgTypeEnum.REQUIREMENT)
             self.root_node.add_child(pkg_node)
             pkg_node.add_children(self.add_dependencies_of_pkg_node(pkg_node))
         # treenode.TreeNode.recursive_print_children(self.root_node)
@@ -25,13 +25,13 @@ class MakeTree:
             return []
         for dep in dep_list:
             dep_name = self.return_package_name_from_require_dist_string(dep)
-            dep_node_list.append(self.create_tree_node_for_package(dep_name))
+            dep_node_list.append(self.create_tree_node_for_package(dep_name, PkgTypeEnum.DEPENDENCY))
         return dep_node_list
 
     def return_package_name_from_require_dist_string(self, dep):
         package_regex = "(.+?)([(;\n]|$)"
         return str(re.match(package_regex, dep).group(1)).rstrip()
 
-    def create_tree_node_for_package(self, pkg_name):
+    def create_tree_node_for_package(self, pkg_name, pkg_type):
         pkg_data = apicall.get_data_for_a_package(pkg_name)
-        return treenode.TreeNode(pkg_name, pkg_data, PkgTypeEnum.REQUIREMENT)
+        return treenode.TreeNode(pkg_name, pkg_data, pkg_type)
