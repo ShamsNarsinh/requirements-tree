@@ -1,3 +1,6 @@
+"""
+Main execution file of the project
+"""
 from src.compile import compiler
 from src.tree import maketree
 from src import helper
@@ -13,7 +16,6 @@ def main(args = None):
     dep_tree = maketree.MakeTree(req_list)
     print "Collecting information from PyPI...\n"
     print dep_tree.process_requirements_list()
-
 
 if __name__ == "__main__":
     main()

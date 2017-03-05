@@ -5,16 +5,22 @@ import treenode
 
 
 class MakeTree:
+    """
+    Class that performs the task of creating a dependency tree.
+    """
     def __init__(self, req_list):
         self.req_list = req_list
         self.root_node = treenode.TreeNode("root")
 
-    def process_requirements_list(self, version_flag=False):
+    def process_requirements_list(self):
+        """
+        Processes each requirement package mentioned in requirement text file and generates the tree.
+        :return: root node of the tree
+        """
         for req in self.req_list:
             pkg_node = self.create_tree_node_for_package(req[0], PkgTypeEnum.REQUIREMENT)
             self.root_node.add_child(pkg_node)
             pkg_node.add_children(self.add_dependencies_of_pkg_node(pkg_node))
-        # treenode.TreeNode.recursive_print_children(self.root_node)
         return self.root_node
 
     def add_dependencies_of_pkg_node(self, pkg_node):
